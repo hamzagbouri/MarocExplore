@@ -1,0 +1,1165 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel JWT Auth API",
+        "description": "API documentation for authentication using JWT in Laravel.",
+        "contact": {
+            "email": "your-email@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Localhost API Server"
+        }
+    ],
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "operationId": "0903f2e0df1a8857bee538fc055417f0",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "John Doe"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user and get JWT token",
+                "operationId": "2dd578ff7aba2721293dac66833b27d1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "johndoe@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "203": {
+                        "description": "User authenticated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    },
+                    "500": {
+                        "description": "Could not create token"
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get authenticated user details",
+                "operationId": "f0e258a1c69765024f344f6dea1d4a0a",
+                "responses": {
+                    "200": {
+                        "description": "Authenticated user details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid token"
+                    },
+                    "404": {
+                        "description": "User not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout user and invalidate token",
+                "operationId": "68a6108af04af5e3bc1ea68a6c6f1299",
+                "responses": {
+                    "200": {
+                        "description": "Successfully logged out"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get list of all categories",
+                "operationId": "c51987e043cb6c017f645e1a08fd86d9",
+                "responses": {
+                    "200": {
+                        "description": "List of categories",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "categories": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titre": {
+                                                        "type": "string",
+                                                        "example": "Technology"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new category",
+                "operationId": "1d1f307387757f0cd5469b1ec98cc912",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Science"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Category created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Categorie Created Successfully"
+                                        },
+                                        "categorie": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "titre": {
+                                                    "type": "string",
+                                                    "example": "Science"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get a specific category",
+                "operationId": "8d4e1002de81ebeae7c469325fb879f1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "titre": {
+                                            "type": "string",
+                                            "example": "Science"
+                                        },
+                                        "created_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        },
+                                        "updated_at": {
+                                            "type": "string",
+                                            "format": "date-time"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update a category",
+                "operationId": "5c2bb59c55273e4c229c7f090d41f91c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Updated Category Name"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category updated successfully"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a category",
+                "operationId": "3e722427a4e745142bc385765973d66c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category deleted successfully"
+                    },
+                    "404": {
+                        "description": "Category not found"
+                    }
+                }
+            }
+        },
+        "/itineraires": {
+            "get": {
+                "tags": [
+                    "Itineraires"
+                ],
+                "summary": "Get all itineraries",
+                "operationId": "d8c7d0f9f0390c808c7dcd6929c8d71d",
+                "responses": {
+                    "200": {
+                        "description": "List of itineraries",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "itineraires": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "itineraire_id": {
+                                                        "type": "integer",
+                                                        "example": 1
+                                                    },
+                                                    "titre": {
+                                                        "type": "string",
+                                                        "example": "Adventure in the Alps"
+                                                    },
+                                                    "duree": {
+                                                        "type": "string",
+                                                        "example": "5 days"
+                                                    },
+                                                    "image": {
+                                                        "type": "string",
+                                                        "example": "https://example.com/image.jpg"
+                                                    },
+                                                    "user_name": {
+                                                        "type": "string",
+                                                        "example": "John Doe"
+                                                    },
+                                                    "category_name": {
+                                                        "type": "string",
+                                                        "example": "Nature"
+                                                    },
+                                                    "destinations": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "logement": {
+                                                                    "type": "string",
+                                                                    "example": "Hotel XYZ"
+                                                                },
+                                                                "nom": {
+                                                                    "type": "string",
+                                                                    "example": "Paris"
+                                                                },
+                                                                "activites": {
+                                                                    "type": "string",
+                                                                    "example": "Hiking"
+                                                                },
+                                                                "plats": {
+                                                                    "type": "string",
+                                                                    "example": "French Cuisine"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/itineraires/add": {
+            "post": {
+                "tags": [
+                    "Itineraires"
+                ],
+                "summary": "Create a new itinerary",
+                "operationId": "583fd34e09bda64d83666ae289dcf2bb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre",
+                                    "duree",
+                                    "image",
+                                    "categorie_id",
+                                    "destinations"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Adventure in the Alps"
+                                    },
+                                    "duree": {
+                                        "type": "string",
+                                        "example": "5 days"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "destinations": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "logement": {
+                                                    "type": "string",
+                                                    "example": "Hotel XYZ"
+                                                },
+                                                "nom": {
+                                                    "type": "string",
+                                                    "example": "Paris"
+                                                },
+                                                "activite": {
+                                                    "type": "string",
+                                                    "example": "Hiking"
+                                                },
+                                                "plats": {
+                                                    "type": "string",
+                                                    "example": "French Cuisine"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Itinerary created successfully"
+                    },
+                    "400": {
+                        "description": "Validation error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/itineraire/update/{id}": {
+            "put": {
+                "tags": [
+                    "Itinéraires"
+                ],
+                "summary": "Mettre à jour un itinéraire",
+                "operationId": "681b5a47f8ee8027760e946ac40648a2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "titre",
+                                    "duree",
+                                    "image",
+                                    "categorie_id",
+                                    "destinations"
+                                ],
+                                "properties": {
+                                    "titre": {
+                                        "type": "string",
+                                        "example": "Itinéraire 1"
+                                    },
+                                    "duree": {
+                                        "type": "string",
+                                        "example": "7 jours"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "image_url"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "destinations": {
+                                        "type": "array",
+                                        "items": {
+                                            "required": [
+                                                "logement",
+                                                "nom",
+                                                "activite",
+                                                "plats"
+                                            ],
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "logement": {
+                                                    "type": "string",
+                                                    "example": "Hôtel A"
+                                                },
+                                                "nom": {
+                                                    "type": "string",
+                                                    "example": "Paris"
+                                                },
+                                                "activite": {
+                                                    "type": "string",
+                                                    "example": "Visite de la Tour Eiffel"
+                                                },
+                                                "plats": {
+                                                    "type": "string",
+                                                    "example": "Plat local A"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Itinéraire mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Itinéraire updated"
+                                        },
+                                        "itineraire": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Itinéraire non trouvé"
+                    },
+                    "403": {
+                        "description": "Non autorisé"
+                    }
+                }
+            }
+        },
+        "/itineraires/{id}/visiter": {
+            "post": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Attach an itinerary to user's 'to visit' list",
+                "description": "Attaches an itinerary to the authenticated user's 'to visit' list.",
+                "operationId": "attachItinerary",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the itinerary to attach",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Itinerary attached successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "itineraires avisiter created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/itineraires/avisiter": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Get itineraries to visit for authenticated user",
+                "description": "Returns all itineraries marked as 'to visit' by the authenticated user, with related destinations and categories.",
+                "operationId": "getUserItinerariesToVisit",
+                "responses": {
+                    "200": {
+                        "description": "List of itineraries to visit",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "itineraires": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "titre": {
+                                                        "type": "string"
+                                                    },
+                                                    "destinations": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "logement": {
+                                                                    "type": "string",
+                                                                    "example": "Hotel XYZ"
+                                                                },
+                                                                "nom": {
+                                                                    "type": "string",
+                                                                    "example": "Paris"
+                                                                },
+                                                                "activite": {
+                                                                    "type": "string",
+                                                                    "example": "Hiking"
+                                                                },
+                                                                "plats": {
+                                                                    "type": "string",
+                                                                    "example": "French Cuisine"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "categorie": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/itineraires/search/{search}": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Search itineraries by title",
+                "description": "Search itineraries by title, with case-insensitive matching using ILIKE.",
+                "operationId": "searchItineraries",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "path",
+                        "description": "The search term for itinerary title",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Search results",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "itineraires": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "titre": {
+                                                        "type": "string"
+                                                    },
+                                                    "destinations": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "logement": {
+                                                                    "type": "string",
+                                                                    "example": "Hotel XYZ"
+                                                                },
+                                                                "nom": {
+                                                                    "type": "string",
+                                                                    "example": "Paris"
+                                                                },
+                                                                "activite": {
+                                                                    "type": "string",
+                                                                    "example": "Hiking"
+                                                                },
+                                                                "plats": {
+                                                                    "type": "string",
+                                                                    "example": "French Cuisine"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    },
+                                                    "categorie": {
+                                                        "type": "object"
+                                                    },
+                                                    "user": {
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Invalid search term"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/itineraires/top": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Get top 10 popular itineraries",
+                "description": "Returns the top 10 itineraries based on the number of favorites (favoris).",
+                "operationId": "getTopItineraries",
+                "responses": {
+                    "200": {
+                        "description": "List of top 10 itineraries",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "itineraires": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "titre": {
+                                                        "type": "string"
+                                                    },
+                                                    "favoris_count": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/itineraires/categorie/count": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Get the count of itineraries by category",
+                "description": "Returns the count of itineraries for each category.",
+                "operationId": "getItineraryCountByCategory",
+                "responses": {
+                    "200": {
+                        "description": "List of categories with itinerary count",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "itineraires": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "titre": {
+                                                        "type": "string"
+                                                    },
+                                                    "itineraire_count": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/itineraires/categorie/{id}": {
+            "get": {
+                "tags": [
+                    "Itineraire"
+                ],
+                "summary": "Get itineraries filtered by category",
+                "description": "Returns itineraries filtered by category with their destinations.",
+                "operationId": "getItinerariesByCategory",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "The ID of the category to filter itineraries by",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of itineraries filtered by category with destinations",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "itineraires": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "itineraire_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "titre": {
+                                                        "type": "string"
+                                                    },
+                                                    "duree": {
+                                                        "type": "string"
+                                                    },
+                                                    "image": {
+                                                        "type": "string"
+                                                    },
+                                                    "user_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "category_name": {
+                                                        "type": "string"
+                                                    },
+                                                    "destinations": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "logement": {
+                                                                    "type": "string"
+                                                                },
+                                                                "nom": {
+                                                                    "type": "string"
+                                                                },
+                                                                "activites": {
+                                                                    "type": "string"
+                                                                },
+                                                                "plats": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Authentication",
+            "description": "API Endpoints for Authentication"
+        },
+        {
+            "name": "Categories",
+            "description": "API Endpoints for managing categories"
+        },
+        {
+            "name": "Itineraires",
+            "description": "Itineraires"
+        },
+        {
+            "name": "Itinéraires",
+            "description": "Itinéraires"
+        },
+        {
+            "name": "Itineraire",
+            "description": "Itineraire"
+        }
+    ]
+}

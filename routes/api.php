@@ -31,5 +31,11 @@ Route::middleware(['jwt'])->group(function () {
     Route::post('/categorie/add',[CategorieController::class,'create']);
     Route::get('/categories',[CategorieController::class,'index']);
     Route::post('/itineraires/add',[ItineraireController::class,'create']);
-    Route::get('/itineraires/{id}/visiter',[ItineraireController::class,'visiter']);
+    Route::get('/itineraires/{id}/visiter',[ItineraireController::class,'aavisiter']);
+    Route::get('/itineraires/avisiter',[ItineraireController::class,'avisiterUser']);
+    Route::get('/itineraires/search/{search}',[ItineraireController::class,'searchIitneraire']);
+    Route::get('/itineraires/top',[ItineraireController::class,'topItineraire']);
+    Route::get('/itineraires/categorie/count',[ItineraireController::class,'CountItineraireByCategorie']);
+    Route::get('/itineraires/categorie/{id}',[ItineraireController::class,'filterParCategorie']);
+    Route::get('/itineraires/update/{id}',[ItineraireController::class,'update']);
 });

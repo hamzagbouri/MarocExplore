@@ -29,5 +29,8 @@ class Itineraire extends Model
     {
         return $this->belongsTo(Categorie::class);
     }
+    public function avisiter(): BelongsToMany {
+        return  $this->BelongsToMany(Itineraire::class, 'itineraire_avisiter');
+    }
 
 }

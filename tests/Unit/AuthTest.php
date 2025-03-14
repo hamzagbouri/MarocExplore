@@ -4,7 +4,10 @@ namespace Tests\Unit;
 
 
 
+use Mockery;
+use Mockery\Mock;
 use Tests\TestCase;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthTest extends TestCase
 {
@@ -50,7 +53,8 @@ class AuthTest extends TestCase
 //    }
     public function test_register_with_valid_credentials()
     {
-        $response = $this->postJson('/api/register', [
+
+       $response = $this->postJson('/api/register', [
             'email' => 'hamza.gbouri@gmail.com',
             'password' => 'mamababa123',
             'name' => 'Hamza'
